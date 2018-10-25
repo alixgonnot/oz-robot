@@ -1,0 +1,20 @@
+<id>1212547</id>
+<version>0.1</version>
+<name>RobotGuideCTD</name>
+<category>1</category>
+<icon>@icon.png</icon>
+<run_type>TUSER_UDAROS_LUSER_PIGNORECALL</run_type>
+<target>lab.smm</target>
+<autorun_level>20</autorun_level>
+<run_param1>com.thesis.alix.robot_guide</run_param1>
+<run_param2>com.thesis.alix.robot_guide.MainActivity</run_param2>
+<titleList>
+	<title>
+		<lang>en</lang>
+		<name>Demonstration</name>
+	</title>
+	<title>
+		<lang>ko</lang>
+		<name>WakeUp 테스트</name>
+	</title>
+</titleList>
