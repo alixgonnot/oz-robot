@@ -1,48 +1,44 @@
 <html>
-   <head>
-      <script src="connector.js"></script>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <head>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
       <link rel="stylesheet" href="style.css">
-   </head>
-   <body>
-     <div class="container-fluid">
-    <div class="row" id="main_title">
-      <h1>Robot Command Tool</h1>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row" id="main_title">
+        <h1>Robot Command Tool</h1>
+      </div>
+   	  <div class="row">
+   		   <div class="col-md-10">
+   			     <h3>Robot Commands</h3>
+   			     <button type="button" class="btn btn-success" onclick="sendCommand(0)">Etape 0 : Intro</button>
+   			     <button type="button" class="btn btn-success" onclick="sendCommand(1)">Etape 1 : Lire Cours</button>
+             <button type="button" class="btn btn-success" onclick="sendCommand(2)">Etape 2 : Lire Fiches et Besoins</button>
+   			     <button type="button" class="btn btn-success" onclick="sendCommand(3)">Etape 3 : Identifier Critères</button>
+             <button type="button" class="btn btn-success" onclick="sendCommand(4)">Etape 4 : Discuter critères</button>
+   			     <button type="button" class="btn btn-success" onclick="sendCommand(5)">Etape 5 : Vérification</button>
+   		   </div>
+   		   <div class="col-md-2">
+   			     <h3>Server status</h3>
+             <div class="col-md-12" id="server_status"></div>
+   		   </div>
+      </div>
+      <div class="row">
+   	    <div class="col-md-12">
+   			    <div class="dropdown">
+   				       <button class="btn btn-primary dropdown-toggle" type="button" id="mode_selector" data-toggle="dropdown">Robot Mode</button>
+   				       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+   					          <a class="dropdown-item" href="#" onclick="sendMode(1)"> Mode 1 : Text Only </a>
+                      <a class="dropdown-item" href="#" onclick="sendMode(2)"> Mode 2 : Voice Only </a>
+                      <a class="dropdown-item" href="#" onclick="sendMode(3)"> Mode 3 : Voice and Emotion </a>
+   				       </div>
+   			    </div>
+   		  </div>
+   	  </div>
     </div>
-   	<div class="row">
-   		<div class="col-md-10">
-   			<h3>
-   				Robot Commands
-   			</h3>
-   			<button type="button" class="btn btn-success">
-   				Button
-   			</button>
-   			<button type="button" class="btn btn-success">
-   				Button
-   			</button>
-   		</div>
-   		<div class="col-md-2">
-   			<h3>
-   				Server status
-   			</h3><img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" />
-   		</div>
-   	</div>
-   	<div class="row">
-   		<div class="col-md-12">
-   			<div class="dropdown">
-
-   				<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-   					Action
-   				</button>
-   				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-   					 <a class="dropdown-item disabled" href="#">Action</a> <a class="dropdown-item" href="#">Another action</a> <a class="dropdown-item" href="#">Something else here</a>
-   				</div>
-   			</div>
-   		</div>
-   	</div>
-   </div>
-
-     </div>
-   </body>
+    <script src="connector.js"></script>
+  </body>
 </html>

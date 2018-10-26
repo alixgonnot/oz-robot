@@ -23,7 +23,9 @@ wsServer.on('request', function(request) {
   // all messages from users here.
   connection.on('message', function(message) {
     if (message.type === 'utf8') {
-      console.log(message);
+      console.log(message.utf8Data);
+      var content = JSON.parse(message.utf8Data)
+      console.log(content.msg);
       // process WebSocket message
     }
   });
