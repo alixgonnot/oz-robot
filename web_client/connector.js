@@ -25,7 +25,7 @@ function sendCommand(cmd){
   var obj_cmd = new Object();
   obj_cmd.sender = 'web_client';
   obj_cmd.cat = 'command'
-  obj_cmd.msg  = cmd;
+  obj_cmd.val  = cmd;
   ws.send(JSON.stringify(obj_cmd));
 }
 
@@ -37,7 +37,7 @@ function sendMode(md){
     var obj_md = new Object();
     obj_md.sender = 'web_client';
     obj_md.cat = 'mode'
-    obj_md.msg  = md;
+    obj_md.val  = md;
     ws.send(JSON.stringify(obj_md));
   }
 

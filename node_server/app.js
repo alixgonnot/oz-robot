@@ -1,5 +1,6 @@
 var WebSocketServer = require('websocket').server;
 var http = require('http');
+var tabConnections = [];
 
 var server = http.createServer(function(request, response) {
   // process HTTP request. Since we're writing just WebSockets
@@ -17,7 +18,8 @@ wsServer = new WebSocketServer({
 // WebSocket server
 wsServer.on('request', function(request) {
   var connection = request.accept(null, request.origin);
-  console.log("Guys, there is something out there :/ ...");
+  tabConnections.push(connection);
+  console.log("new client is now connected");
 
   // This is the most important callback for us, we'll handle
   // all messages from users here.
@@ -25,7 +27,12 @@ wsServer.on('request', function(request) {
     if (message.type === 'utf8') {
       console.log(message.utf8Data);
       var content = JSON.parse(message.utf8Data)
-      console.log(content.msg);
+      console.log(content.val);
+
+      tabConnections.forEach(function(client){
+        client.sendUTF(message.utf8Data);
+      });
+
       // process WebSocket message
     }
   });

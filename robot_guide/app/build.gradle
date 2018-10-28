@@ -32,4 +32,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'ipl.darsapi:darsapi:0.0.31@aar'
     implementation 'global.ipl.daris.t1.iplcomponent_local:iplcomponent_local:0.1.8@aar'
+    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
 }
