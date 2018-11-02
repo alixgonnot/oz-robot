@@ -1,8 +1,20 @@
 package com.thesis.alix.robot_guide;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Locale;
 
 import ipl.darsapi.Robot;
 import ipl.darsapi.category.Base;
@@ -10,19 +22,13 @@ import ipl.darsapi.category.HardwareCommon;
 import ipl.darsapi.category.HardwareT1;
 import ipl.darsapi.category.ImageProcessing;
 import ipl.darsapi.category.SoundProcessing;
+import global.ipl.daris.t1_local.iplcomponent.iplrobotemotion.IPLRobotEmotionView;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
-
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MainActivity extends Activity {
 
@@ -37,24 +43,56 @@ public class MainActivity extends Activity {
     HardwareCommon hardwareCommon;
     SoundProcessing soundProc;
     ImageProcessing imageProc;
+    private IPLRobotEmotionView mFace;
     private int mode = 0; // 0 = not initialized
                           // 1 = text only
                           // 2 = voice only
                           // 3 = voice + emotions
-
-    private Button start;
-    private TextView output;
     private OkHttpClient client;
+    TextToSpeech t1;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.robot_face);
+
+        super.onCreate(savedInstanceState);
+
+        // set content layout
+        setContentView(R.layout.robot_face);
+
+        // get face instance from layout
+        mFace = findViewById(R.id.face_view);
+
+        // init face in App singleton
+        // display default face on the robot
+        mFace.setAnimation(IPLRobotEmotionView.Emotion.USUAL_A);
+        mFace.loop(true);
+        mFace.playAnimation();
 
         initRobot();
 
+        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t1.setLanguage(Locale.FRANCE);
+                }
+            }
+        });
+
         client = new OkHttpClient();
         start();
+    }
+
+    @Override
+    public void onDestroy(){
+        if(t1 !=null){
+            t1.stop();
+            t1.shutdown();
+        }
+        super.onDestroy();
     }
 
 /**********************ROBOT RELATED METHODS*******************************************************/
@@ -134,7 +172,11 @@ public class MainActivity extends Activity {
 
     }
 
-/******************WEBSOCKET RELATED METHODS*******************************************************/
+    public Context getActivity() {
+        return this;
+    }
+
+    /******************WEBSOCKET RELATED METHODS*******************************************************/
 
     private final class EchoWebSocketListener extends WebSocketListener {
 
@@ -159,10 +201,8 @@ public class MainActivity extends Activity {
 
         @Override
         public void onMessage(WebSocket webSocket, String text) {
-            Log.i("SERVER_INFO","test");
             JSONObject msg = new JSONObject();
             try {
-
                 msg = new JSONObject(text);
                 Log.i("SERVER INFO",text);
 
@@ -172,16 +212,29 @@ public class MainActivity extends Activity {
 
             try {
 
+                // traitement du message envoyé par la télécommande
                 if (msg.getString("sender").equals("web_client")){
 
                     String cat = msg.getString("cat");
 
+                    // demande de changement de modemsg.getString("val")
                     if (cat.equals("mode"))
                         changeMode(msg.getString("val"));
-                    else if(cat.equals("command"))
+
+                    // demande d'execution de commande
+                    else if(cat.equals("command")){
+
                         performCommand(msg.getString("val"));
+                        Log.i("COMMAND", msg.getString("val"));
+                    }
+
+                    // autres messages provenant de la télécommande
                     else
-                        Log.i("SERVER INFO",text);
+                        Log.i("WEBCLIENT INFO",text);
+                }
+                // traitement des autres messages
+                else{
+                    Log.i("OTHER INFO",text);
                 }
 
             } catch (JSONException e) {
@@ -213,10 +266,50 @@ public class MainActivity extends Activity {
     }
 
     private void performCommand(String val) {
+
+        //Mode 1 : Text Only
+        if (mode == 1){
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.i("Command mode 1", "TESTTEST");
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                    builder.setMessage("Vous devez lire les fiches descriptives de chacun des téléphones puis donner une note pour chacun des critères.")
+                            .setTitle("Etape 3");
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                }
+            });
+        }
+        else if(mode == 2){
+            Log.i("Command mode 2","TESTTEST");
+            t1.speak("Etape 3,Vous devez lire les fiches descriptives de chacun des téléphones puis donner une note pour chacun des critères !", TextToSpeech.QUEUE_FLUSH, null);
+        }
+        //Mode 3 : Voice and emotion
+        else if(mode == 3){
+            Log.i("Command mode 3","TESTTEST");
+            mFace.setAnimation(IPLRobotEmotionView.Emotion.DELIGHT);
+            mFace.loop(false);
+            mFace.playAnimation();
+            mp = MediaPlayer.create(this, R.raw.transcript);
+            mp.start();
+        }
+
     }
 
     private void start() {
-        Request request = new Request.Builder().url("ws://192.168.0.13:1337").build();
+
+        // hot spot
+        //Request request = new Request.Builder().url("ws://192.168.43.100:8080").build();
+
+        //wifi local
+        Request request = new Request.Builder().url("ws://10.42.0.1:8080").build();
+
         EchoWebSocketListener listener = new EchoWebSocketListener();
         WebSocket ws = client.newWebSocket(request, listener);
 
@@ -227,7 +320,8 @@ public class MainActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                output.setText(output.getText().toString() + "\n\n" + txt);
+                //output.setText(output.getText().toString() + "\n\n" + txt);
+                Log.i("OUTPUT",txt);
             }
         });
     }

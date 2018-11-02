@@ -1,5 +1,5 @@
 //ouverture de la websocket
-var ws = new WebSocket("ws://localhost:1337");
+var ws = new WebSocket("ws://localhost:8080");
 var mode = 0;
 
 //code executé à l'ouverture de la socket
