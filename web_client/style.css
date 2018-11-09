@@ -6,3 +6,23 @@
 #server_status{
   margin-top: 20px;
 }
+
+#button_commands{
+  margin-bottom: 20px;
+}
+
+#button_evaluations{
+  margin-bottom: 20px;
+}
+
+#button_corrections{
+  margin-bottom: 20px;
+}
+
+.btn{
+  margin-top: 7px;
+}
+
+.form-control{
+  margin-top: 7px;
+}

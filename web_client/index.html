@@ -12,14 +12,16 @@
         <h1>Robot Command Tool</h1>
       </div>
    	  <div class="row">
-   		   <div class="col-md-10">
+   		   <div class="col-md-10" id="button_commands">
    			     <h3>Robot Commands</h3>
-   			     <button type="button" class="btn btn-success" onclick="sendCommand(0)">Etape 0 : Intro</button>
-   			     <button type="button" class="btn btn-success" onclick="sendCommand(1)">Etape 1 : Lire Cours</button>
-             <button type="button" class="btn btn-success" onclick="sendCommand(2)">Etape 2 : Lire Fiches et Besoins</button>
-   			     <button type="button" class="btn btn-success" onclick="sendCommand(3)">Etape 3 : Identifier Critères</button>
-             <button type="button" class="btn btn-success" onclick="sendCommand(4)">Etape 4 : Discuter critères</button>
-   			     <button type="button" class="btn btn-success" onclick="sendCommand(5)">Etape 5 : Vérification</button>
+   			     <button type="button" class="btn btn-success" onclick="sendCommand(1)">1 : Lire Cours</button>
+             <button type="button" class="btn btn-success" onclick="sendCommand(2)">2 : Lire Besoins</button>
+   			     <button type="button" class="btn btn-success" onclick="sendCommand(3)">3 : Lire fiches descriptive</button>
+             <button type="button" class="btn btn-success" onclick="sendCommand(4)">4 : Identifier critères</button>
+             <button type="button" class="btn btn-success" onclick="sendCommand(5)">4 bis : Re-soumission critères</button>
+   			     <button type="button" class="btn btn-success" onclick="sendCommand(6)">5 : Noter critères</button>
+             <button type="button" class="btn btn-success" onclick="sendCommand(7)">6 : Calcul score</button>
+             <button type="button" class="btn btn-success" onclick="sendCommand(8)">6 bis : Re-soumission choix</button>
    		   </div>
    		   <div class="col-md-2">
    			     <h3>Server status</h3>
@@ -27,7 +29,27 @@
    		   </div>
       </div>
       <div class="row">
-   	    <div class="col-md-12">
+        <div class="col-md-10" id="button_evaluations">
+           <button type="button" class="btn btn-success" onclick="sendEval(1)">1 : Crit juste</button>
+           <button type="button" class="btn btn-success" onclick="sendEval(2)">2 : Crit faux critères</button>
+           <button type="button" class="btn btn-success" onclick="sendEval(3)">3 : Crit faux ordre</button>
+           <button type="button" class="btn btn-success" onclick="sendEval(4)">4 : Choix juste</button>
+           <input type="text" class="form-control" id="eval_perso">
+           <button type="button" class="btn btn-success" onclick="sendEval(5)">5 : Eval perso</button>
+   		   </div>
+   		   <div class="col-md-2">
+   			     <h3>Robot Status</h3>
+             <div class="col-md-12" id="robot_status"></div>
+   		   </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10" id="button_corrections">
+           <button type="button" class="btn btn-success" onclick="sendCorrec(1)">1 : Critères</button>
+           <button type="button" class="btn btn-success" onclick="sendCorrec(2)">2 : Choix</button>
+   		   </div>
+      </div>
+      <div class="row">
+   	    <div class="col-md-12" style="margin-top : 20px;">
    			    <div class="dropdown">
    				       <button class="btn btn-primary dropdown-toggle" type="button" id="mode_selector" data-toggle="dropdown">Robot Mode</button>
    				       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

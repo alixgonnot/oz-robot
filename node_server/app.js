@@ -1,6 +1,7 @@
 var WebSocketServer = require('websocket').server;
 var http = require('http');
-var tabConnections = [];
+var robot_socket = null;
+var webclient_socket = null;
 
 var server = http.createServer(function(request, response) {
   // process HTTP request. Since we're writing just WebSockets
@@ -18,9 +19,7 @@ wsServer = new WebSocketServer({
 // WebSocket server
 wsServer.on('request', function(request) {
   var connection = request.accept(null, request.origin);
-  tabConnections.push(connection);
   console.log("new client is now connected");
-
   // This is the most important callback for us, we'll handle
   // all messages from users here.
   connection.on('message', function(message) {
@@ -29,11 +28,22 @@ wsServer.on('request', function(request) {
       var content = JSON.parse(message.utf8Data)
       console.log(content.val);
 
-      tabConnections.forEach(function(client){
-        client.sendUTF(message.utf8Data);
-      });
-
-      // process WebSocket message
+      if (content.sender == "robot"){
+        robot_socket = connection;
+        console.log("robot");
+        if (webclient_socket != null){
+          webclient_socket.sendUTF(message.utf8Data);
+          console.log("message sent to webclient");
+        }
+      }
+      else if (content.sender == "web_client"){
+        webclient_socket = connection;
+        console.log("webclient");
+        if (robot_socket != null){
+          robot_socket.sendUTF(message.utf8Data);
+          console.log("message sent to robot");
+        }
+      }
     }
   });
 
