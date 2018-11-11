@@ -55,8 +55,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.robot_face);
-
-        super.onCreate(savedInstanceState);
+        initRobot();
 
         // set content layout
         setContentView(R.layout.robot_face);
@@ -70,8 +69,6 @@ public class MainActivity extends Activity {
         mFace.loop(true);
         mFace.playAnimation();
 
-       initRobot();
-
         t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -81,8 +78,8 @@ public class MainActivity extends Activity {
             }
         });
 
-        client = new OkHttpClient();
-        start();
+        client = new OkHttpClient();start();
+        testMove();
     }
 
     @Override
@@ -161,7 +158,6 @@ public class MainActivity extends Activity {
     private void initServices() {
         categoryBase = (Base) robot.getCategory(Robot.CategoryBase);
         hdw = (HardwareT1) robot.getCategory(Robot.CategoryHardwareT1);
-        hardwareCommon = (HardwareCommon) robot.getCategory(Robot.CategoryHardwareCommon);
         soundProc = (SoundProcessing) robot.getCategory(Robot.CategorySoundProcessing);
         imageProc = (ImageProcessing) robot.getCategory(Robot.CategoryImageProcessing);
     }
@@ -169,6 +165,26 @@ public class MainActivity extends Activity {
     public Context getActivity() {
         return this;
     }
+
+    public void testMove(){
+        Log.i("flow", "testmove");
+        hardwareCommon = (HardwareCommon) robot.getCategory(Robot.CategoryHardwareCommon);
+        int seq1 = hardwareCommon.setCTRLPowerOn(HardwareCommon.PowerAll, new Robot.OnResponseListener(){
+            @Override
+            public int onResponse(int seq, String result){
+                return 0;
+            }
+        });
+        int seq = hardwareCommon.setMovement(100,0);
+
+        int seq2 = hardwareCommon.setCTRLPowerOff(HardwareCommon.PowerAll, new Robot.OnResponseListener(){
+            @Override
+            public int onResponse(int seq, String result){
+                return 0;
+            }
+        });
+    }
+
 
     /******************WEBSOCKET RELATED METHODS*******************************************************/
 
@@ -417,10 +433,10 @@ public class MainActivity extends Activity {
         //Request request = new Request.Builder().url("ws://192.168.43.100:8080").build();
 
         //wifi local
-        Request request = new Request.Builder().url("ws://10.42.0.1:8080").build();
+       // Request request = new Request.Builder().url("ws://10.42.0.1:8080").build();
 
         //maison
-        //Request request = new Request.Builder().url("ws://192.168.0.13:8080").build();
+        Request request = new Request.Builder().url("ws://192.168.0.13:8080").build();
 
         EchoWebSocketListener listener = new EchoWebSocketListener();
         WebSocket ws = client.newWebSocket(request, listener);

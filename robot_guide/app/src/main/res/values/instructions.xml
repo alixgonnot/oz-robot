@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Commands-->
-    <item name="command_1" type="string">L\'objectif de cet exercice est de faire un choix en vous basant sur une matrice de décision. Dans un premier temps lisez individuellement le cours mis à votre disposition.</item>
+    <item name="command_1" type="string">L\'objectif de cet exercice est de faire un choix, à l\'aide d\'une matrice de décision. Dans zin premier temps, lisez individuellement le cours mis à votre disposition.</item>
     <item name="command_2" type="string">Lisez maintenant individuellement le texte décrivant les besoins de l\'entreprise.</item>
-    <item name="command_3" type="string">Choisissez maintenant chacun une fiche décrivant un téléphone et lisez-la individuellement.</item>
-    <item name="command_4" type="string">Discutez maintenant tous ensemble pour identifier les critères de décision et inscrivez-les dans la matrice. Le critère le plus important doit avoir le poids le plus élevé.</item>
-    <item name="command_5" type="string">Rediscutez entre vous et inscrivez une nouvelle liste de critères dans la matrice.</item>
-    <item name="command_6" type="string">Discutez maintenant tous ensemble et donnez une note entre 0 et 4 à chaque téléphone pour chaque critère. Inscrivez les résultats dans la matrice.</item>
-    <item name="command_7" type="string">Calculez le score final pour chaque téléphone en faisant la somme pondérée des notes attribuées à chaque critère. Inscrivez le nom du téléphone ayant le meilleur score dans la case \"Résultat\".</item>
-    <item name="command_8" type="string">Rediscutez des notes attribuées aux critères et choisissez de nouveau un téléphone.</item>
+    <item name="command_3" type="string">Choisissez maintenant chacun une fiche décrivant un téléphone, et lisez-la individuellement.</item>
+    <item name="command_4" type="string">Discutez maintenant tous ensemble pour identifier les critères de décision, et inscrivez-les dans la matrice. Le critère le plus important doit avoir le poids le plus élevé.</item>
+    <item name="command_5" type="string">Rediscutez entre vous, et inscrivez une nouvelle liste de critères dans la matrice.</item>
+    <item name="command_6" type="string">Discutez maintenant tous ensemble, et donnez une note entre 0 et 4, à chaque téléphone, pour chaque critère. Inscrivez les résultats dans la matrice.</item>
+    <item name="command_7" type="string">Calculez le score final pour chaque téléphone (en faisant la somme pondérée des notes attribuées à chaque critère). Inscrivez le nom du téléphone ayant le meilleur score, dans la case \"Résultat\".</item>
+    <item name="command_8" type="string">Rediscutez des notes attribuées aux critères, et choisissez de nouveau un téléphone.</item>
     <!--Evaluation-->
     <item name="evaluation_1" type="string">C\'est juste, vous avez identifié les bons critères.</item>
     <item name="evaluation_2" type="string">C\'est faux, vous n\'avez pas identifié les bons critères.</item>
     <item name="evaluation_3" type="string">C\'est faux, vous n\'avez pas inscrit les critères dans le bon ordre.</item>
     <item name="evaluation_4" type="string">C\'est juste, Vous avez fait le bon choix.</item>
     <!--Correction-->
-    <item name="correction_1" type="string">Les critères attendus étaient (par ordre décroissant d\'importance) : Autonomie, Prix, Qualité Photo et Ergonomie</item>
-    <item name="correction_2" type="string">Le téléphone attendu était le Xiaomi Redmi Note 5</item>
+    <item name="correction_1" type="string">Les critères attendus étaient (par ordre décroissant d\'importance) : Autonomie, Prix, Qualité Photo et Ergonomie. Inscrivez ces critères dans la matrice.</item>
+    <item name="correction_2" type="string">Le téléphone attendu était ... le Xiaomi Redmi Note 5</item>
 </resources>
