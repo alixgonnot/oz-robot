@@ -303,6 +303,9 @@ public class MainActivity extends Activity {
                             .setTitle(dialog_title);
 
                     final AlertDialog dialog = builder.create();
+
+                    mFace.loop(false);
+
                     dialog.show();
 
                     // Hide after some seconds
@@ -320,10 +323,12 @@ public class MainActivity extends Activity {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
                             handler.removeCallbacks(runnable);
+                            mFace.loop(true);
+                            mFace.playAnimation();
                         }
                     });
 
-                    handler.postDelayed(runnable, 30000);
+                    handler.postDelayed(runnable, 10000);
 
                 }
             });
